@@ -6,6 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+  <!--  การใส่ bg -->
+    <ImageView
+        android:scaleType="centerCrop"
+        android:src="@drawable/bg10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
     <FrameLayout
         android:id="@+id/contentMaintFragment"
         android:layout_width="match_parent"
