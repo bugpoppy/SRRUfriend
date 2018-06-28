@@ -16,7 +16,7 @@
         <!--Logo-->
         <ImageView
             android:layout_gravity="center_horizontal"
-            android:src="@drawable/logo"
+            android:src="@drawable/logosrru"
             android:layout_width="@dimen/logo"
             android:layout_height="@dimen/logo" />
 
@@ -78,6 +78,11 @@
 
         <!--Register-->
         <TextView
+            android:id="@+id/txtNewRegister"
+            android:clickable="true"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/h2"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent"
             android:text="New Register"
