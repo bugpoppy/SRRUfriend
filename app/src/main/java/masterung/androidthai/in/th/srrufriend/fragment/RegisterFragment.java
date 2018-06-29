@@ -10,6 +10,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -46,6 +48,12 @@ public class RegisterFragment extends Fragment{
 
     }  //Main Method
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+
+
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -58,7 +66,10 @@ public class RegisterFragment extends Fragment{
             try {
 
                 Bitmap bitmap = BitmapFactory.decodeStream(getActivity().getContentResolver().openInputStream(uri));
-                imageView.setImageBitmap(bitmap);
+                Bitmap bitmap1 = Bitmap.createScaledBitmap(bitmap, 800, 600, true); //บันทัดนี้ใช้กำหนด bitmap1 เป็นตัวเก็บค่าการลดขนาดภาพ แล้วส่งไปแสดงที่ต่อที่บันทัดล่างนี้
+
+
+                imageView.setImageBitmap(bitmap1);
 
 
             } catch (Exception e) {
@@ -85,6 +96,10 @@ public class RegisterFragment extends Fragment{
                 getActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
+        setHasOptionsMenu(true);
+
+
     }
 
 
