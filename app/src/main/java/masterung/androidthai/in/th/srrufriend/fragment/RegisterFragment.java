@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,16 +13,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import it.sauronsoftware.ftp4j.FTPDataTransferListener;
 import masterung.androidthai.in.th.srrufriend.MainActivity;
 import masterung.androidthai.in.th.srrufriend.R;
 
 public class RegisterFragment extends Fragment{
     private ImageView imageView;
     private Uri uri;
+    private boolean aBoolean = true;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -48,8 +54,92 @@ public class RegisterFragment extends Fragment{
     }  //Main Method
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId()==R.id.itemUpload) {
+
+            uploadValueToSever();
+
+            return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void uploadValueToSever() {
+
+        EditText nameEditText = getView().findViewById(R.id.edtName);
+        EditText userEdiText = getView().findViewById(R.id.edtUser);
+        EditText passwordEditText = getView().findViewById(R.id.edtPassword);
+
+        String nameString = nameEditText.getText().toString().trim();
+        String userString = userEdiText.getText().toString().trim();
+        String passwordString = passwordEditText.getText().toString().trim();
+
+        if (aBoolean) {
+            alertMessage("กรุณาเลือกภาพของคุณ");
+        }  else if (nameString.isEmpty() || userString.isEmpty() || passwordString.isEmpty()) {
+            alertMessage("กรุณากรอบข้อมูลให้ครบถ้วน");
+        }   else {
+
+//            upload Image Avata
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy
+                    .Builder().permitAll().build();
+            StrictMode.setThreadPolicy();
+
+
+
+
+
+
+        }
+
+
+    }  //upload
+
+    public class MyUploadAvata implements FTPDataTransferListener{
+        @Override
+        public void started() {
+            alertMessage("Start Upload Avata");
+        }
+
+        @Override
+        public void transferred(int i) {
+            alertMessage("Continue Upload Avata");
+
+        }
+
+        @Override
+        public void completed() {
+            alertMessage("Success Upload Avata");
+
+        }
+
+        @Override
+        public void aborted() {
+
+
+        }
+
+        @Override
+        public void failed() {
+
+        }
+    }
+
+
+
+
+    private void alertMessage(String strMessage) {
+        Toast.makeText(getActivity(),strMessage,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+
+        inflater.inflate(R.menu.menu_register,menu);
 
 
     }
@@ -61,6 +151,7 @@ public class RegisterFragment extends Fragment{
         if (resultCode ==getActivity().RESULT_OK) {
 
             uri = data.getData();
+            aBoolean = false;
 
             try {
 
